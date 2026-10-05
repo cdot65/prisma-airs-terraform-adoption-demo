@@ -1,0 +1,82 @@
+[
+  {
+    "run_id": 4474,
+    "kind": "apply-result",
+    "plan_id": "4472-1",
+    "commit": "b57ad7252a483a5e9ef5f1721cfe5e8efa5d1a05",
+    "applied": true,
+    "noop": true,
+    "cleanup": false,
+    "state": {
+      "serial": 4,
+      "managed_resources": 4
+    }
+  },
+  {
+    "run_id": 4478,
+    "kind": "apply-result",
+    "plan_id": "4477-1",
+    "commit": "5959001023a0c2fbe72de57f836e5d26c7468b5f",
+    "applied": true,
+    "noop": true,
+    "cleanup": false,
+    "state": {
+      "serial": 5,
+      "managed_resources": 4
+    }
+  },
+  {
+    "run_id": 4481,
+    "kind": "failure-result",
+    "error_type": "ValueError",
+    "reason": "First cutover apply must be a no-op",
+    "commit": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "run_id": 4482,
+    "kind": "failure-result",
+    "error_type": "ValueError",
+    "reason": "Reviewed artifact checksum does not match the stored manifest",
+    "commit": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "run_id": 4483,
+    "kind": "failure-result",
+    "error_type": "ValueError",
+    "reason": "Plan commit is stale; create and review a new main plan",
+    "commit": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "run_id": 4484,
+    "kind": "apply-result",
+    "plan_id": "4480-1",
+    "commit": "3350bc083b2d3913848f01348d9b788105a52c0d",
+    "applied": true,
+    "noop": false,
+    "cleanup": false,
+    "state": {
+      "serial": 6,
+      "managed_resources": 4
+    }
+  },
+  {
+    "run_id": 4489,
+    "kind": "apply-result",
+    "plan_id": "4487-1",
+    "commit": "5da8fb135c1781bdda32d3768b98a83a10705673",
+    "applied": true,
+    "noop": false,
+    "cleanup": true,
+    "state": {
+      "serial": 7,
+      "managed_resources": 0
+    }
+  },
+  {
+    "run_id": 4490,
+    "kind": "failure-result",
+    "error_type": "ValueError",
+    "reason": "Canonical demonstration state identities differ; refusing execution",
+    "commit": "5da8fb135c1781bdda32d3768b98a83a10705673"
+  }
+]

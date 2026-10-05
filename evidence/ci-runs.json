@@ -1,0 +1,391 @@
+[
+  {
+    "id": 4472,
+    "index_in_repo": 1,
+    "status": "success",
+    "trigger_event": "push",
+    "commit_sha": "b57ad7252a483a5e9ef5f1721cfe5e8efa5d1a05",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "binary only (superseded)"
+  },
+  {
+    "id": 4473,
+    "index_in_repo": 2,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "b57ad7252a483a5e9ef5f1721cfe5e8efa5d1a05",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "binary only (superseded)"
+  },
+  {
+    "id": 4474,
+    "index_in_repo": 3,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "b57ad7252a483a5e9ef5f1721cfe5e8efa5d1a05"
+  },
+  {
+    "id": 4475,
+    "index_in_repo": 4,
+    "status": "success",
+    "trigger_event": "pull_request",
+    "commit_sha": "e38aaacaf20bbb525ba5ffa8625063bf1da6c1ed",
+    "plan_exit": 2,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 4,
+        "delete": 0,
+        "read": 0,
+        "no-op": 0
+      },
+      "changes": [
+        {
+          "address": "prisma-airs_gateway_config.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_red_team_custom_prompt_set.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_runtime_custom_topic.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_supply_chain_security_group.demonstration",
+          "actions": [
+            "update"
+          ]
+        }
+      ],
+      "changed_outputs": [],
+      "noop": false
+    },
+    "artifact_binding": "binary only (superseded)"
+  },
+  {
+    "id": 4476,
+    "index_in_repo": 5,
+    "status": "success",
+    "trigger_event": "pull_request",
+    "commit_sha": "40bde34923174ac9d8f1d5fa5c5a0b62599ecd58",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4477,
+    "index_in_repo": 6,
+    "status": "success",
+    "trigger_event": "push",
+    "commit_sha": "5959001023a0c2fbe72de57f836e5d26c7468b5f",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4478,
+    "index_in_repo": 7,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "5959001023a0c2fbe72de57f836e5d26c7468b5f"
+  },
+  {
+    "id": 4479,
+    "index_in_repo": 8,
+    "status": "success",
+    "trigger_event": "pull_request",
+    "commit_sha": "9eec1c161910554f5b1dc7db9788d250513b71ff",
+    "plan_exit": 2,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 4,
+        "delete": 0,
+        "read": 0,
+        "no-op": 0
+      },
+      "changes": [
+        {
+          "address": "prisma-airs_gateway_config.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_red_team_custom_prompt_set.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_runtime_custom_topic.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_supply_chain_security_group.demonstration",
+          "actions": [
+            "update"
+          ]
+        }
+      ],
+      "changed_outputs": [],
+      "noop": false
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4480,
+    "index_in_repo": 9,
+    "status": "success",
+    "trigger_event": "push",
+    "commit_sha": "3350bc083b2d3913848f01348d9b788105a52c0d",
+    "plan_exit": 2,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 4,
+        "delete": 0,
+        "read": 0,
+        "no-op": 0
+      },
+      "changes": [
+        {
+          "address": "prisma-airs_gateway_config.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_red_team_custom_prompt_set.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_runtime_custom_topic.demonstration",
+          "actions": [
+            "update"
+          ]
+        },
+        {
+          "address": "prisma-airs_supply_chain_security_group.demonstration",
+          "actions": [
+            "update"
+          ]
+        }
+      ],
+      "changed_outputs": [],
+      "noop": false
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4481,
+    "index_in_repo": 10,
+    "status": "failure",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "id": 4482,
+    "index_in_repo": 11,
+    "status": "failure",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "id": 4483,
+    "index_in_repo": 12,
+    "status": "failure",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "id": 4484,
+    "index_in_repo": 13,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "3350bc083b2d3913848f01348d9b788105a52c0d"
+  },
+  {
+    "id": 4485,
+    "index_in_repo": 14,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "3350bc083b2d3913848f01348d9b788105a52c0d",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4486,
+    "index_in_repo": 15,
+    "status": "success",
+    "trigger_event": "pull_request",
+    "commit_sha": "025c01e192cae86002f7dfcadd6818752b16ce20",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4487,
+    "index_in_repo": 16,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "5da8fb135c1781bdda32d3768b98a83a10705673",
+    "plan_exit": 2,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 4,
+        "read": 0,
+        "no-op": 0
+      },
+      "changes": [
+        {
+          "address": "prisma-airs_gateway_config.demonstration",
+          "actions": [
+            "delete"
+          ]
+        },
+        {
+          "address": "prisma-airs_red_team_custom_prompt_set.demonstration",
+          "actions": [
+            "delete"
+          ]
+        },
+        {
+          "address": "prisma-airs_runtime_custom_topic.demonstration",
+          "actions": [
+            "delete"
+          ]
+        },
+        {
+          "address": "prisma-airs_supply_chain_security_group.demonstration",
+          "actions": [
+            "delete"
+          ]
+        }
+      ],
+      "changed_outputs": [
+        "managed_resource_ids"
+      ],
+      "noop": false
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4488,
+    "index_in_repo": 17,
+    "status": "success",
+    "trigger_event": "push",
+    "commit_sha": "5da8fb135c1781bdda32d3768b98a83a10705673",
+    "plan_exit": 0,
+    "summary": {
+      "actions": {
+        "create": 0,
+        "update": 0,
+        "delete": 0,
+        "read": 0,
+        "no-op": 4
+      },
+      "changes": [],
+      "changed_outputs": [],
+      "noop": true
+    },
+    "artifact_binding": "manifest + binary + review"
+  },
+  {
+    "id": 4489,
+    "index_in_repo": 18,
+    "status": "success",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "5da8fb135c1781bdda32d3768b98a83a10705673"
+  },
+  {
+    "id": 4490,
+    "index_in_repo": 19,
+    "status": "failure",
+    "trigger_event": "workflow_dispatch",
+    "commit_sha": "5da8fb135c1781bdda32d3768b98a83a10705673"
+  }
+]

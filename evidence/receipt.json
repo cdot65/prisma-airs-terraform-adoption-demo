@@ -1,0 +1,123 @@
+{
+  "validated_at": "2026-10-05T10:47:31.513854+00:00",
+  "terraform": "1.16.4",
+  "provider": "cdot65/prisma-airs 0.12.0",
+  "tenant": "Vulture (identifiers sanitized)",
+  "native_import": {
+    "generated_resources": 4,
+    "imported": 4,
+    "created": 0,
+    "changed": 0,
+    "destroyed": 0,
+    "post_import_plan_exit": 0
+  },
+  "parameterization": {
+    "managed_changes": 0,
+    "post_parameterization_plan_exit": 0,
+    "gateway_tuple_shape_preserved": true
+  },
+  "migration": {
+    "same_lineage": true,
+    "same_four_identities": true,
+    "source_serial": 2,
+    "destination_serial": 3,
+    "post_migration_plan_exit": 0,
+    "state_push_used": false,
+    "active_local_state_retired": true
+  },
+  "conjur": {
+    "dedicated_jwt_identity": true,
+    "five_environment_credentials_retrieved": true,
+    "production_variable_denied": true
+  },
+  "backend": {
+    "versioning": true,
+    "conditional_write_duplicate_status": 412,
+    "production_bucket_denial_status": 403,
+    "actual_terraform_lock_contention_exit": 1
+  },
+  "independent_api_checks": {
+    "baseline": {
+      "independent_api_reads": 4,
+      "descriptions_verified": 3,
+      "gateway_retry_attempts": 1,
+      "same_identities": true,
+      "runtime_examples_preserved": true,
+      "stage": "baseline",
+      "managed_resources": 4,
+      "serial": 3
+    },
+    "updated": {
+      "independent_api_reads": 4,
+      "descriptions_verified": 3,
+      "gateway_retry_attempts": 2,
+      "same_identities": true,
+      "runtime_examples_preserved": true,
+      "stage": "updated",
+      "managed_resources": 4,
+      "serial": 6
+    },
+    "clean": {
+      "runtime_absent": true,
+      "gateway_absent": true,
+      "red_team_archived": true,
+      "supply_chain_tombstoned": true,
+      "stage": "clean",
+      "managed_resources": 0,
+      "serial": 7
+    }
+  },
+  "gateway_direct_delete_get_status": 404,
+  "production": {
+    "managed_resources": 357,
+    "state_byte_for_byte_unchanged": true,
+    "git_head_and_clean_tree_unchanged": true
+  },
+  "final_demo_state": {
+    "managed_resources": 0,
+    "serial": 7,
+    "same_original_lineage": true
+  },
+  "offline_control_tests": 24,
+  "source_sha256": {
+    ".forgejo/workflows/terraform.yaml": "111f3fee20c30c4d3a8485d69eaf514cdbb0fc24f23fecd429c47be489bbf47e",
+    ".github/workflows/check.yaml": "e63951c2082b936ca58478c1e53358b869273387f7d3f4660015d9f69717ed2e",
+    ".terraform.lock.hcl": "f23f4ae971ecc8e6a144eb5a79986d70bf4ca8a00323653cc82f70c751c434a3",
+    "ai-gateway.tf": "b4da380382311b9d055115a8aaa2a8c8c0b75ded4742a9f0ee612334913c6862",
+    "ai-red-teaming.tf": "00f79d4ec8d705edd19dd4f09f72677f2cfdce30748c54866d6fac42f0a1cfd1",
+    "ai-runtime-security.tf": "6153a3d29c3d868df8f0f40898604f8b6089a14bec0484bd4b7252c300c88acc",
+    "ai-supply-chain-security.tf": "7896f7ef9234ee90959e2fdefef7503f631263b627eb5fcac3e5e814ae79141f",
+    "backend.hcl.example": "0edf72c5cb269ac1a57c8e683ef078d5a58ca755305e04859e6d31f0a3ca327b",
+    "backend.tf.example": "5cb2a6c7f7bdee7d30c9a14da1380bab0bab3479c5ffa6c341baa205bd299b9b",
+    "ci/check-docs.py": "7a646bf805068f768f84e52def6b10a34905662982cb92005ef072a35919b69a",
+    "ci/conjur.py": "14c65aef384248b0ac084f916d4ea6e8a8701e9e6c48fb681d59e8cbb229a1cc",
+    "ci/install-terraform.py": "3d50e4a6b3ba53506812eb9efd0d3fc654a29eee4129dfb163a8a64c351fce5e",
+    "ci/plans.py": "1ce48bf4849831feb341961819560d313ecf87e677ece6c197f24062884d5be1",
+    "ci/registry.tfrc": "3f3e5f38cfa9289c1231a96a44a6661b8f9f88c6e81b595209d1d69c883842a1",
+    "ci/requirements.txt": "e89a4325c8be7b7a30c165d0e2904349510f610b9449a88ae0160ed5ef32831e",
+    "ci/run.py": "c4eedaaf34d978e8ddfc9f627648f3f1b5c3010c00b838cb7239d5766d50df0c",
+    "ci/settings.json.example": "294d3412ab7625242852d5f1135feafa43269eec2b6d4e98450efa57641ed19e",
+    "ci/tests/test_controls.py": "860a2338bb9594a78c0cd137b1a5e3e50867fc0f6820e6b75d625e14f2072f86",
+    "imports.tf": "4306437eb4267d1d09cf0f80cd65282e1cd9e79f3ccfc87e017f43079d41e232",
+    "infrastructure/00-namespace.yaml": "b53614aa7ef91e5c9c0ca79a49353f57f35249159efc21ee1d8aca2a8d998e4f",
+    "infrastructure/10-runner.yaml": "bce005471378c4c2c11c516ccd1cbd79a1798d11931efb0cc4d6be4c664319ae",
+    "infrastructure/20-conjur-ca.yaml": "478e0081dbaa869ddb7903509131ff3a0b4e41a90dab7f3d04b76ab0423e2cf9",
+    "infrastructure/conjur-policy.yml.example": "7f6fba9aa7f02789f4a86bd99befd41b5f7fd77727a1094b3c3db918627c81f9",
+    "infrastructure/minio-policy.json.example": "489b2ef936473a80cbf1420de50bbf8b4244a4c4e9abf45ad40bf7061268758e",
+    "outputs.tf": "3f08f626ddc4082e67fc1d8349a33437e6726f0d6daa1b872cb267c22aa5b896",
+    "providers.tf": "65cb39f7f8f542fa00ff7a236c9913b7cf663c76b79352e02d40fd1152234a1c",
+    "terraform.tfvars.example": "1ed0919020a5c0fed7ba65e491e6086ae1234e6468881deb48c7f289ce70b177",
+    "variables.tf": "019042f576dbd26aaf313576ed07b492b340dc96054f400f1fc1dbb5bf3e74b1",
+    "versions.tf": "08aca620bb674f784cecb88485de435a3db36073c1d639909294a2dd3086db6a"
+  },
+  "evidence_sha256": {
+    "evidence/ci-results.json": "ef17076aed28f628cf1265b5eb6266e8d78ef21a96feb4e38c16b3546ff8997a",
+    "evidence/ci-runs.json": "744003ac35e0e473188c9724e345b9014fa0a9adce6cc9fa5a4e305f1755eda3",
+    "evidence/generated.tf.txt": "5ce8defd6dbc8b16951bc0c58ca6c6b781b7e87a60c89be1dede28a493b6f41c",
+    "evidence/native-run.txt": "93b4dcba73b1fae014464085e6494e46fd70c693ca6218a9220b093f5627f0b9",
+    "evidence/review-4477.txt": "b2392571c2addb7dec677addb9fb2bd04c9236fa0bdd598aae49cd7d257cf462",
+    "evidence/review-4480.txt": "ed32c83fb176148484054cfdba51e0a33a6558b84db8c3e55ebe2ced27e4dff7",
+    "evidence/review-4485.txt": "b2392571c2addb7dec677addb9fb2bd04c9236fa0bdd598aae49cd7d257cf462",
+    "evidence/review-4487.txt": "91b8af9820ca133384514cc7514d9a8dc980df89f7b5b29a7630c86f2db6815e"
+  }
+}

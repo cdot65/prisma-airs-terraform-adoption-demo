@@ -1,0 +1,87 @@
+Real saved-plan review; credentials omitted and all tenant/resource UUIDs replaced.
+
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # prisma-airs_gateway_config.demonstration will be destroyed
+  - resource "prisma-airs_gateway_config" "demonstration" {
+      - config          = {
+          - override_params = {
+              - model = "gpt-4o-mini"
+            }
+          - provider        = "@openai"
+          - retry           = {
+              - attempts        = 2
+              - on_status_codes = [
+                  - 429,
+                  - 500,
+                  - 502,
+                  - 503,
+                  - 504,
+                ]
+            }
+        } -> null
+      - created_at      = "2026-10-05T10:02:26.000Z" -> null
+      - id              = "<resource-uuid>" -> null
+      - last_updated_at = "2026-10-05T10:42:18.000Z" -> null
+      - name            = "tf-adoption-demo-20261005" -> null
+      - organisation_id = "<resource-uuid>" -> null
+      - slug            = "pc-tf-ado-91466f" -> null
+      - status          = "active" -> null
+      - version_id      = "<resource-uuid>" -> null
+      - workspace_id    = "<resource-uuid>" -> null
+    }
+
+  # prisma-airs_red_team_custom_prompt_set.demonstration will be destroyed
+  - resource "prisma-airs_red_team_custom_prompt_set" "demonstration" {
+      - active      = false -> null
+      - archive     = false -> null
+      - created_at  = "2026-10-05T10:02:26.344289Z" -> null
+      - description = "Unused prompt set managed through reviewed Terraform CI/CD." -> null
+      - id          = "<resource-uuid>" -> null
+      - name        = "tf-adoption-demo-20261005" -> null
+      - status      = "DRAFT" -> null
+      - updated_at  = "2026-10-05T10:42:18.151884Z" -> null
+      - uuid        = "<resource-uuid>" -> null
+    }
+
+  # prisma-airs_runtime_custom_topic.demonstration will be destroyed
+  - resource "prisma-airs_runtime_custom_topic" "demonstration" {
+      - description = "Requests to change the demonstration infrastructure settings. Managed through reviewed CI/CD." -> null
+      - examples    = [
+          - "Rename the demonstration infrastructure project.",
+          - "Update the example Terraform configuration settings.",
+          - "Change the demonstration environment resource description.",
+        ] -> null
+      - id          = "<resource-uuid>" -> null
+      - topic_id    = "<resource-uuid>" -> null
+      - topic_name  = "tf-adoption-demo-20261005" -> null
+      - updated_at  = "2026-10-05T10:42:18Z" -> null
+        # (1 unchanged attribute hidden)
+    }
+
+  # prisma-airs_supply_chain_security_group.demonstration will be destroyed
+  - resource "prisma-airs_supply_chain_security_group" "demonstration" {
+      - created_at  = "2026-10-05T10:02:27.274736Z" -> null
+      - description = "Empty model group managed through reviewed Terraform CI/CD." -> null
+      - id          = "<resource-uuid>" -> null
+      - name        = "tf-adoption-demo-20261005" -> null
+      - source_type = "HUGGING_FACE" -> null
+      - state       = "ACTIVE" -> null
+      - updated_at  = "2026-10-05T10:42:16.716710Z" -> null
+      - uuid        = "<resource-uuid>" -> null
+    }
+
+Plan: 0 to add, 0 to change, 4 to destroy.
+
+Changes to Outputs:
+  - managed_resource_ids = {
+      - gateway_config      = "<resource-uuid>"
+      - red_team_prompt_set = "<resource-uuid>"
+      - runtime_topic       = "<resource-uuid>"
+      - supply_chain_group  = "<resource-uuid>"
+    } -> null

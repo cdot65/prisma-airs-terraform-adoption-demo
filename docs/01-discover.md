@@ -7,6 +7,9 @@ git clone https://github.com/cdot65/prisma-airs-terraform-adoption-demo.git
 cd prisma-airs-terraform-adoption-demo
 git switch -c my-adoption stage/01-import-blocks
 mkdir -m 700 .local
+# Linux amd64 only; other platforms install the pinned version normally.
+python3 ci/install-terraform.py
+export PATH="$PWD/.ci-bin:$PATH"
 ```
 
 Select your own tenant explicitly for the CLI. For this recorded demonstration the operator used an isolated tenant registry selecting Vulture, preserving the computer's existing default selection.

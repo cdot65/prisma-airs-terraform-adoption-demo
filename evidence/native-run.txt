@@ -1,0 +1,43 @@
+Real Terraform output excerpts. Credentials and tenant/resource identifiers sanitized.
+Commands were executed during this run; omissions are explicit.
+
+== Native configuration generation ==
+Plan: 4 to import, 0 to add, 0 to change, 0 to destroy.
+[Other output omitted; protected complete transcript retained.]
+
+== Apply import-only plan ==
+Apply complete! Resources: 4 imported, 0 added, 0 changed, 0 destroyed.
+[Other output omitted; protected complete transcript retained.]
+
+== Post-import clean plan ==
+No changes. Your infrastructure matches the configuration.
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+
+== Parameterization plan ==
+Plan: 0 to add, 1 to change, 0 to destroy.
+Changes to Outputs:
+[Other output omitted; protected complete transcript retained.]
+
+== Corrected parameterization plan ==
+Changes to Outputs:
+[Other output omitted; protected complete transcript retained.]
+
+== Post-parameterization clean plan ==
+No changes. Your infrastructure matches the configuration.
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+
+== Corrected native state migration ==
+Initializing the backend...
+Successfully configured the backend "s3"! Terraform will automatically
+use this backend unless the backend configuration changes.
+- Reusing previous version of cdot65/prisma-airs from the dependency lock file
+- Using previously-installed cdot65/prisma-airs v0.12.0
+Terraform has been successfully initialized!
+
+== Corrected migration clean plan ==
+No changes. Your infrastructure matches the configuration.
+Terraform has compared your real infrastructure against your configuration
+and found no differences, so no changes are needed.
+
