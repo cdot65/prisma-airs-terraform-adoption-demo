@@ -1,0 +1,5 @@
+# Discovery: Import only existing unmanaged objects; use their real identities locally.
+runtime_topic_id       = "REPLACE_WITH_DISCOVERED_UUID"
+red_team_prompt_set_id = "REPLACE_WITH_DISCOVERED_UUID"
+gateway_config_id      = "REPLACE_WITH_DISCOVERED_UUID"
+supply_chain_group_id  = "REPLACE_WITH_DISCOVERED_UUID"
