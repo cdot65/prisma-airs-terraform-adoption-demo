@@ -83,8 +83,9 @@ class Controls(unittest.TestCase):
 
     def test_pr_plan_cannot_be_applied(self):
         manifest = {**self.manifest, 'event': 'pull_request'}
-        with self.assertRaises(ValueError):
-            self.validate(manifest=manifest)
+        manifest['artifact_sha256'] = artifact_digest(manifest)
+        with self.assertRaisesRegex(ValueError, 'PR plans'):
+            self.validate(manifest=manifest, sha=manifest['artifact_sha256'])
 
     def test_protected_replacement_refused(self):
         with self.assertRaises(ValueError):
@@ -162,8 +163,10 @@ class Controls(unittest.TestCase):
                 summarize(plan, {'test.fixture': 'fixture-id'})
 
     def test_cleanup_artifact_cannot_be_used_as_normal_apply(self):
-        with self.assertRaises(ValueError):
-            self.validate(manifest={**self.manifest, 'cleanup': True})
+        manifest = {**self.manifest, 'cleanup': True}
+        manifest['artifact_sha256'] = artifact_digest(manifest)
+        with self.assertRaisesRegex(ValueError, 'matching the reviewed plan mode'):
+            self.validate(manifest=manifest, sha=manifest['artifact_sha256'])
 
     def test_manifest_age_and_authorization_cannot_be_rewritten(self):
         for key, value in [('created_at', 1100), ('commit', 'b' * 40), ('cleanup', True),
