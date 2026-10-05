@@ -1,0 +1,4 @@
+# Installation: Use signed Registry packages; exclude local development overrides.
+provider_installation {
+  direct {}
+}

@@ -1,0 +1,14 @@
+.terraform/
+.ci-bin/
+.ci-venv/
+.local/
+*.tfstate*
+*.tfplan
+*.tfvars
+*.tfvars.json
+.env*
+__pycache__/
+crash.log
+backend.tf
+backend.hcl
+ci/settings.json
