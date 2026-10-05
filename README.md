@@ -40,3 +40,17 @@ Terraform reads tfvars natively. The pipeline supplies `-var-file=vulture.tfvars
 The public repository contains sanitized templates. The companion private Forgejo project contains tenant-specific nonsecret tfvars, backend settings, and ownership metadata. Never commit credentials, raw state, binary plans, or unreviewed generated output. Import cannot recover secrets that an API masks or returns only once.
 
 The existing Vulture production project owns 357 objects separately. This lesson adopts only its four disposable fixtures, with a dedicated bucket, runner, and Conjur identity.
+
+## Check the teaching project
+
+Run these checks without tenant credentials from the finished root:
+
+```bash
+terraform fmt -check -recursive
+python3 -m unittest discover -s ci/tests
+python3 ci/check-docs.py
+TF_CLI_CONFIG_FILE="$PWD/ci/registry.tfrc" terraform init -backend=false -lockfile=readonly
+terraform validate
+```
+
+Live CI/CD runs in the private Forgejo companion. This public repository does not install a GitHub Actions workflow.
