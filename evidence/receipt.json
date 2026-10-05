@@ -81,7 +81,6 @@
   "offline_control_tests": 24,
   "source_sha256": {
     ".forgejo/workflows/terraform.yaml": "111f3fee20c30c4d3a8485d69eaf514cdbb0fc24f23fecd429c47be489bbf47e",
-    ".github/workflows/check.yaml": "e63951c2082b936ca58478c1e53358b869273387f7d3f4660015d9f69717ed2e",
     ".terraform.lock.hcl": "f23f4ae971ecc8e6a144eb5a79986d70bf4ca8a00323653cc82f70c751c434a3",
     "ai-gateway.tf": "b4da380382311b9d055115a8aaa2a8c8c0b75ded4742a9f0ee612334913c6862",
     "ai-red-teaming.tf": "00f79d4ec8d705edd19dd4f09f72677f2cfdce30748c54866d6fac42f0a1cfd1",
