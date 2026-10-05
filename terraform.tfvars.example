@@ -1,0 +1,31 @@
+# Inputs: Sanitized values from the real run; use the settings recovered from your objects.
+runtime_topic_id       = "REPLACE_WITH_DISCOVERED_UUID"
+red_team_prompt_set_id = "REPLACE_WITH_DISCOVERED_UUID"
+gateway_config_id      = "REPLACE_WITH_DISCOVERED_UUID"
+supply_chain_group_id  = "REPLACE_WITH_DISCOVERED_UUID"
+
+runtime_topic = {
+  name        = "tf-adoption-demo-20261005"
+  description = "Requests to change the demonstration infrastructure settings."
+  examples    = ["Rename the demonstration infrastructure project.", "Update the example Terraform configuration settings.", "Change the demonstration environment resource description."]
+}
+
+red_team_prompt_set = {
+  name        = "tf-adoption-demo-20261005"
+  description = "Unused prompt set for a Terraform import demonstration."
+}
+
+gateway_config = {
+  name               = "tf-adoption-demo-20261005"
+  workspace_id       = "REPLACE_WITH_DISCOVERED_UUID"
+  upstream_name      = "openai"
+  model              = "gpt-4o-mini"
+  retry_attempts     = 1
+  retry_status_codes = [429, 500, 502, 503, 504]
+}
+
+supply_chain_group = {
+  name        = "tf-adoption-demo-20261005"
+  description = "Empty model group for a Terraform import demonstration."
+  source_type = "HUGGING_FACE"
+}

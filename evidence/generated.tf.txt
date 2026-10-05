@@ -1,0 +1,38 @@
+# __generated__ by Terraform
+# Please review these resources and move them into your main configuration files.
+
+# __generated__ by Terraform from "<resource-uuid>"
+resource "prisma-airs_gateway_config" "demonstration" {
+  config = {
+    override_params = {
+      model = "gpt-4o-mini"
+    }
+    provider = "@openai"
+    retry = {
+      attempts        = 1
+      on_status_codes = [429, 500, 502, 503, 504]
+    }
+  }
+  name         = "tf-adoption-demo-20261005"
+  workspace_id = "<resource-uuid>"
+}
+
+# __generated__ by Terraform from "<resource-uuid>"
+resource "prisma-airs_supply_chain_security_group" "demonstration" {
+  description = "Empty model group for a Terraform import demonstration."
+  name        = "tf-adoption-demo-20261005"
+  source_type = "HUGGING_FACE"
+}
+
+# __generated__ by Terraform from "<resource-uuid>"
+resource "prisma-airs_red_team_custom_prompt_set" "demonstration" {
+  description = "Unused prompt set for a Terraform import demonstration."
+  name        = "tf-adoption-demo-20261005"
+}
+
+# __generated__ by Terraform from "<resource-uuid>"
+resource "prisma-airs_runtime_custom_topic" "demonstration" {
+  description = "Requests to change the demonstration infrastructure settings."
+  examples    = ["Rename the demonstration infrastructure project.", "Update the example Terraform configuration settings.", "Change the demonstration environment resource description."]
+  topic_name  = "tf-adoption-demo-20261005"
+}
