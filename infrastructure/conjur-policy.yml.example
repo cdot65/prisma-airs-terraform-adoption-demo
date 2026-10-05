@@ -1,0 +1,29 @@
+# Identity: Replace these names with your dedicated trusted-private-repo runner.
+- !policy
+  id: apps
+  body:
+    - !host
+      id: system:serviceaccount:terraform-adoption-demo-ci:terraform-runner
+      annotations:
+        authn-jwt/talos/kubernetes.io/namespace: terraform-adoption-demo-ci
+        authn-jwt/talos/kubernetes.io/serviceaccount/name: terraform-runner
+- !grant
+  role: !group conjur/authn-jwt/talos/apps
+  members: !host apps/system:serviceaccount:terraform-adoption-demo-ci:terraform-runner
+- !policy
+  id: data/prisma-airs-terraform/adoption-demo
+  body:
+    - &tenant-vars
+      - !variable management/client-id
+      - !variable management/client-secret
+      - !variable management/tsg-id
+      - !variable backend/access-key-id
+      - !variable backend/secret-access-key
+    - !group consumers
+    - !permit
+      role: !group consumers
+      privilege: [read, execute]
+      resource: *tenant-vars
+- !grant
+  role: !group data/prisma-airs-terraform/adoption-demo/consumers
+  members: !host apps/system:serviceaccount:terraform-adoption-demo-ci:terraform-runner

@@ -1,0 +1,15 @@
+# State: Dedicated demo ownership; credentials and endpoint come from environment variables.
+bucket = "prisma-airs-terraform-adoption-demo"
+key    = "state/demo.tfstate"
+region = "us-east-1"
+
+# Coordination: Keep lockfiles enabled, including reviewed cleanup.
+use_lockfile = true
+
+# Compatibility: MinIO uses the S3 API without AWS identity services.
+use_path_style              = true
+skip_credentials_validation = true
+skip_region_validation      = true
+skip_metadata_api_check     = true
+skip_requesting_account_id  = true
+skip_s3_checksum            = true

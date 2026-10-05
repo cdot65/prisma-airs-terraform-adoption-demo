@@ -1,0 +1,4 @@
+# Handoff: Copy to backend.tf only when ready to migrate your existing local state.
+terraform {
+  backend "s3" {}
+}

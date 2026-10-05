@@ -1,0 +1,27 @@
+# TLS: Rotate this public CA alongside the Conjur server CA.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: conjur-ca
+  namespace: terraform-adoption-demo-ci
+data:
+  ca.pem: |
+    -----BEGIN CERTIFICATE-----
+    MIIDGzCCAgOgAwIBAgIQA/EllnxLGCssReRk0MbK8TANBgkqhkiG9w0BAQsFADAY
+    MRYwFAYDVQQDEw1jb25qdXItb3NzLWNhMB4XDTI2MDgzMDE1NDgxNloXDTI3MDgz
+    MDE1NDgxNlowGDEWMBQGA1UEAxMNY29uanVyLW9zcy1jYTCCASIwDQYJKoZIhvcN
+    AQEBBQADggEPADCCAQoCggEBAM2YvL5e6kQDW3SXqrp8njO8CzydO/W12J61M2E3
+    k/BFacOSIq7VwGa/l5TwVetef/dFLPjAVhzdJgrpGirDV2Weg7OD4plqOkMmgt6t
+    nn7fasZVD7jhPvfQq43A8Qa7Bigd9XwBvoF4OpBZQkzCA95OwIBIRYa8IhasUZA/
+    gciTlfTo3po6bgwo16btemlhUG/oZxmgL1AL4IGzaAM+Id3atl1pF38rNV82BTxc
+    ehB8EzzEkcFPHt7oW+Dmp5AjbG6PEZ90jBO2gHGn3EVAxYpXUcMRLzOdC/lBcqOS
+    lVJP6bBtJ3ebGgLTPE421nm3bU5p6HZW9MANFBQt5OnKookCAwEAAaNhMF8wDgYD
+    VR0PAQH/BAQDAgKkMB0GA1UdJQQWMBQGCCsGAQUFBwMBBggrBgEFBQcDAjAPBgNV
+    HRMBAf8EBTADAQH/MB0GA1UdDgQWBBTNwprIO3EylmTKw0v1vkufkieUuTANBgkq
+    hkiG9w0BAQsFAAOCAQEAANATSSti4W9Jma7tsaUSGiLrFTdvAy1p0xey6lB04Df2
+    t7aRGkYtBFUMPH0rIgSlJ7+N9tQtHTbgaSZM/LeQw2yzhgGk42UI3FjgPalgeILd
+    iV/CqjvBGVjNEhLQFhMkIsCRCWtVFTuaJH1hUryAMTQVrmjXfKOU3KhrCBziHjf1
+    28FwPvWDytNV+wMa4onJ33mct2vNrwZHlwaQevg23mYS6pj4O76jrfSOZd6Rk5E7
+    X5UFyqAIn6+XUG7nW0riCtqaP5GYANh9n7S8xjIsEioe41NbHgQ5hyblMAWUA5C/
+    bBEWYm8uDVddLluB3tuCoGIG8DQRxsuezLPeaxXt3Q==
+    -----END CERTIFICATE-----

@@ -1,0 +1,21 @@
+{
+  "repository": "cdot/prisma-airs-terraform-adoption-demo",
+  "server_url": "https://git.cdot.io",
+  "conjur_url": "https://conjur-oss.conjur.svc.cluster.local",
+  "conjur_account": "cdot",
+  "conjur_service_id": "talos",
+  "conjur_prefix": "data/prisma-airs-terraform/adoption-demo",
+  "s3_endpoint": "http://minio.k8s-backups.svc.cluster.local:9000",
+  "bucket": "prisma-airs-terraform-adoption-demo",
+  "state_key": "state/demo.tfstate",
+  "region": "us-east-1",
+  "expected_tsg_id": "REPLACE_WITH_TENANT_ID",
+  "var_file": "vulture.tfvars",
+  "plan_max_age_seconds": 86400,
+  "ownership": {
+    "prisma-airs_runtime_custom_topic.demonstration": "REPLACE_WITH_DISCOVERED_UUID",
+    "prisma-airs_red_team_custom_prompt_set.demonstration": "REPLACE_WITH_DISCOVERED_UUID",
+    "prisma-airs_gateway_config.demonstration": "REPLACE_WITH_DISCOVERED_UUID",
+    "prisma-airs_supply_chain_security_group.demonstration": "REPLACE_WITH_DISCOVERED_UUID"
+  }
+}

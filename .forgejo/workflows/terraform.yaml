@@ -1,0 +1,99 @@
+name: Terraform
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: Create a main plan or apply an exact reviewed main plan
+        type: choice
+        options: [plan, apply, cleanup-plan, cleanup-apply]
+        default: plan
+      plan_id:
+        description: Plan ID printed by the reviewed main plan run
+        type: string
+      reviewed_sha256:
+        description: SHA256 printed by that plan run
+        type: string
+      noop_only:
+        description: Refuse changes (keep enabled for the first cutover apply)
+        type: boolean
+        default: true
+
+# Coordination: Never cancel a job while Terraform owns the state lock.
+concurrency:
+  group: adoption-demo-terraform
+  cancel-in-progress: false
+
+jobs:
+  offline:
+    name: Offline checks
+    runs-on: node
+    steps:
+      - uses: https://github.com/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - run: python3 ci/install-terraform.py
+      - run: .ci-bin/terraform fmt -check -recursive
+      - run: python3 -m unittest discover -s ci/tests -v
+      - name: Validate without credentials or remote state
+        run: |
+          export TF_CLI_CONFIG_FILE="$PWD/ci/registry.tfrc"
+          .ci-bin/terraform init -backend=false -lockfile=readonly -input=false
+          .ci-bin/terraform validate
+
+  live:
+    name: Live plan or reviewed apply
+    needs: offline
+    # Trust: Fork PRs never run on the Conjur-bearing runner.
+    if: >-
+      (github.event_name == 'pull_request' &&
+       github.event.pull_request.head.repo.full_name == github.repository) ||
+      (github.ref == 'refs/heads/main' &&
+       (github.event_name == 'push' || github.event_name == 'workflow_dispatch'))
+    runs-on: adoption-demo-terraform
+    timeout-minutes: 45
+    container:
+      image: registry.cdot.io/ci/node-runner:24
+      volumes: [/conjur:/conjur:ro]
+    env:
+      CI_EVENT_NAME: ${{ github.event_name }}
+      CI_EVENT_PATH: ${{ github.event_path }}
+      CI_REPOSITORY: ${{ github.repository }}
+      CI_REF: ${{ github.ref }}
+      CI_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+      CI_RUN_ID: ${{ github.run_id }}
+      CI_RUN_ATTEMPT: ${{ github.run_attempt }}
+      CI_TOKEN: ${{ github.token }}
+      OPERATION: ${{ inputs.operation || 'plan' }}
+      PLAN_ID: ${{ inputs.plan_id }}
+      REVIEWED_SHA256: ${{ inputs.reviewed_sha256 }}
+      NOOP_ONLY: ${{ inputs.noop_only }}
+    steps:
+      - uses: https://github.com/actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - run: python3 ci/install-terraform.py
+      - name: Install locked CI dependencies
+        run: |
+          python3 -m venv .ci-venv
+          .ci-venv/bin/pip install --require-hashes -r ci/requirements.txt
+      - name: Retrieve Conjur credentials and execute Terraform
+        run: |
+          if [ "$OPERATION" = apply ] || [ "$OPERATION" = cleanup-apply ]; then
+            if [ "$NOOP_ONLY" = true ]; then
+              .ci-venv/bin/python ci/run.py "$OPERATION" --plan-id "$PLAN_ID" --reviewed-sha256 "$REVIEWED_SHA256" --noop-only
+            else
+              .ci-venv/bin/python ci/run.py "$OPERATION" --plan-id "$PLAN_ID" --reviewed-sha256 "$REVIEWED_SHA256"
+            fi
+          elif [ "$OPERATION" = plan ] || [ "$OPERATION" = cleanup-plan ]; then
+            .ci-venv/bin/python ci/run.py "$OPERATION"
+          else
+            echo 'Unsupported operation'; exit 1
+          fi
+      - name: Remove temporary tooling
+        if: always()
+        run: rm -rf .ci-venv .ci-bin

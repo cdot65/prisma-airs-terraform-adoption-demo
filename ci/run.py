@@ -106,7 +106,7 @@ def execute(mode, plan_id='', reviewed_sha='', noop_only=False):
             return s3.get_object(Bucket=bucket, Key=key)['Body'].read()
 
         try:
-            terraform(['init', '-input=false', '-lockfile=readonly', '-no-color'], env)
+            terraform(['init', '-backend-config=backend.hcl', '-input=false', '-lockfile=readonly', '-no-color'], env)
             terraform(['validate', '-no-color'], env)
             state = check_state(env, settings)
             plan = work / 'reviewed.tfplan'

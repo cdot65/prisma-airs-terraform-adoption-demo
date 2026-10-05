@@ -1,0 +1,120 @@
+# Execution: Repository-scoped runner with one job at a time.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: terraform-runner-data
+  namespace: terraform-adoption-demo-ci
+spec:
+  accessModes: [ReadWriteOnce]
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 5Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: terraform-runner-config
+  namespace: terraform-adoption-demo-ci
+data:
+  config.yaml: |
+    log:
+      level: info
+    runner:
+      capacity: 1
+      timeout: 1h
+      labels:
+        - "adoption-demo-terraform:docker://registry.cdot.io/ci/node-runner:24"
+      fetch_timeout: 5s
+      fetch_interval: 2s
+    cache:
+      enabled: false
+    container:
+      network: bridge
+      privileged: false
+      docker_host: tcp://localhost:2375
+      valid_volumes: [/conjur]
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: terraform-runner
+  namespace: terraform-adoption-demo-ci
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: terraform-runner
+  template:
+    metadata:
+      labels:
+        app: terraform-runner
+    spec:
+      serviceAccountName: terraform-runner
+      automountServiceAccountToken: false
+      nodeSelector:
+        kubernetes.io/hostname: talos7
+      securityContext:
+        fsGroup: 1000
+      initContainers:
+        - name: configure
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities: {drop: [ALL]}
+          image: busybox:1.37.0
+          command: [sh, -c, 'umask 077; cat /base/config.yaml /connection/connection.yaml > /runtime/config.yaml']
+          volumeMounts:
+            - {name: config, mountPath: /base, readOnly: true}
+            - {name: connection, mountPath: /connection, readOnly: true}
+            - {name: runtime, mountPath: /runtime}
+      containers:
+        - name: runner
+          image: code.forgejo.org/forgejo/runner:12.13.2
+          command: [forgejo-runner, daemon, --config, /runtime/config.yaml]
+          workingDir: /data
+          resources:
+            requests: {cpu: 200m, memory: 256Mi}
+            limits: {memory: 1Gi}
+          volumeMounts:
+            - {name: data, mountPath: /data}
+            - {name: runtime, mountPath: /runtime, readOnly: true}
+        - name: dind
+          image: docker:27-dind
+          args: [dockerd, '--host=tcp://0.0.0.0:2375', '--tls=false']
+          env:
+            - {name: DOCKER_TLS_CERTDIR, value: ''}
+          securityContext:
+            privileged: true
+          resources:
+            requests: {cpu: 200m, memory: 512Mi}
+            limits: {memory: 2Gi}
+          volumeMounts:
+            - {name: docker, mountPath: /var/lib/docker}
+            # Authentication: Jobs explicitly mount this read-only JWT and CA.
+            - {name: conjur, mountPath: /conjur, readOnly: true}
+      volumes:
+        - name: data
+          persistentVolumeClaim: {claimName: terraform-runner-data}
+        - name: config
+          configMap: {name: terraform-runner-config}
+        - name: connection
+          secret: {secretName: runner-connection}
+        - name: runtime
+          emptyDir: {medium: Memory}
+        - name: docker
+          emptyDir: {}
+        - name: conjur
+          projected:
+            sources:
+              - serviceAccountToken:
+                  path: token
+                  audience: conjur
+                  expirationSeconds: 3600
+              - configMap:
+                  name: conjur-ca
+                  items: [{key: ca.pem, path: ca.pem}]
