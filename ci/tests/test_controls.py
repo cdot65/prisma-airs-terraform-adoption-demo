@@ -6,26 +6,28 @@ import unittest
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from conjur import environment
-from plans import digest, input_digest, require_trusted_event, summarize, validate_artifact, redact_review, require_no_new_drift, execution_digest, observed_credentials
+from plans import digest, input_digest, require_trusted_event, summarize, validate_artifact, redact_review, require_no_new_drift, execution_digest, observed_credentials, artifact_digest
 
 
 class Controls(unittest.TestCase):
     def setUp(self):
         self.settings = {'repository': 'owner/project', 'plan_max_age_seconds': 3600}
         self.plan = b'saved-plan-with-private-values'
+        self.review = b'redacted-human-readable-review'
         self.auth = {key: key + '-credential' for key in ('PANW_MGMT_CLIENT_ID', 'PANW_MGMT_CLIENT_SECRET',
                      'PANW_MGMT_TSG_ID', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')}
         self.inputs = {'product': {'credential': 'private', 'missing': None, 'empty': ''}}
         self.manifest = {'repository': 'owner/project', 'ref': 'refs/heads/main',
                          'event': 'push', 'commit': 'a' * 40, 'created_at': 1000,
                          'plan_sha256': digest(self.plan), 'execution_sha256': execution_digest(self.inputs, self.auth),
-                         'summary': {'noop': True}}
+                         'summary': {'noop': True}, 'review_sha256': digest(self.review)}
+        self.manifest['artifact_sha256'] = artifact_digest(self.manifest)
 
     def validate(self, **kwargs):
         return validate_artifact(kwargs.get('manifest', self.manifest), kwargs.get('plan', self.plan),
-                                 kwargs.get('sha', digest(self.plan)), self.settings,
+                                 kwargs.get('sha', self.manifest['artifact_sha256']), self.settings,
                                  kwargs.get('commit', 'a' * 40), kwargs.get('inputs', self.inputs), kwargs.get('authentication', self.auth),
-                                 now=kwargs.get('now', 1100))
+                                 now=kwargs.get('now', 1100), review_bytes=kwargs.get('review', self.review))
 
     def test_fork_live_plan_refused(self):
         event = {'pull_request': {'head': {'repo': {'full_name': 'attacker/fork'}}, 'base': {'ref': 'main'}}}
@@ -162,6 +164,16 @@ class Controls(unittest.TestCase):
     def test_cleanup_artifact_cannot_be_used_as_normal_apply(self):
         with self.assertRaises(ValueError):
             self.validate(manifest={**self.manifest, 'cleanup': True})
+
+    def test_manifest_age_and_authorization_cannot_be_rewritten(self):
+        for key, value in [('created_at', 1100), ('commit', 'b' * 40), ('cleanup', True),
+                           ('summary', {'noop': False}), ('execution_sha256', '0' * 64)]:
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.validate(manifest={**self.manifest, key: value})
+
+    def test_review_text_tampering_is_refused(self):
+        with self.assertRaises(ValueError):
+            self.validate(review=b'a different human review')
 
 
 

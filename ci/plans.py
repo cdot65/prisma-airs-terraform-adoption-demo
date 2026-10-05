@@ -13,6 +13,11 @@ def input_digest(inputs):
     return digest(json.dumps(inputs, sort_keys=True, separators=(',', ':')).encode())
 
 
+def artifact_digest(manifest):
+    """Bind binary/review hashes and every authorization field to the human-reviewed digest."""
+    return input_digest({key: value for key, value in manifest.items() if key != 'artifact_sha256'})
+
+
 def require_trusted_event(settings, event_name, ref, repository, event, applying=False):
     if repository != settings['repository']:
         raise ValueError('Workflow repository differs from configured repository')
@@ -57,11 +62,15 @@ def summarize(plan, ownership=None, cleanup=False):
             'noop': not changes and not outputs}
 
 
-def validate_artifact(manifest, plan_bytes, reviewed_digest, settings, commit, inputs, authentication, now=None, cleanup=False):
+def validate_artifact(manifest, plan_bytes, reviewed_digest, settings, commit, inputs, authentication, now=None, cleanup=False, review_bytes=None):
     if not re.fullmatch(r'[0-9a-f]{64}', reviewed_digest):
         raise ValueError('Provide the SHA256 shown by the reviewed plan run')
-    if digest(plan_bytes) != reviewed_digest or manifest['plan_sha256'] != reviewed_digest:
-        raise ValueError('Reviewed plan checksum does not match the stored artifact')
+    if artifact_digest(manifest) != reviewed_digest or manifest.get('artifact_sha256') != reviewed_digest:
+        raise ValueError('Reviewed artifact checksum does not match the stored manifest')
+    if digest(plan_bytes) != manifest['plan_sha256']:
+        raise ValueError('Stored plan differs from its reviewed manifest')
+    if review_bytes is None or digest(review_bytes) != manifest['review_sha256']:
+        raise ValueError('Stored review text differs from its reviewed manifest')
     if manifest['repository'] != settings['repository'] or manifest['ref'] != 'refs/heads/main':
         raise ValueError('Only a plan from this repository main branch can be applied')
     if manifest['event'] not in ('push', 'workflow_dispatch'):

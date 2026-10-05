@@ -14,7 +14,7 @@ import urllib.request
 import boto3
 from botocore.config import Config
 from conjur import Conjur, environment
-from plans import digest, input_digest, require_trusted_event, summarize, validate_artifact, redact_review, require_no_new_drift, execution_digest, observed_credentials
+from plans import digest, input_digest, require_trusted_event, summarize, validate_artifact, redact_review, require_no_new_drift, execution_digest, observed_credentials, artifact_digest
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -127,10 +127,13 @@ def execute(mode, plan_id='', reviewed_sha='', noop_only=False):
                 review, _ = terraform(['show', '-no-color', str(plan)], env)
                 secret_values = [env[key] for key in ('PANW_MGMT_CLIENT_ID', 'PANW_MGMT_CLIENT_SECRET', 'AWS_ACCESS_KEY_ID', 'AWS_SECRET_ACCESS_KEY')]
                 secret_values.extend(observed_credentials(planned_json, []))
-                put(prefix + 'review.txt', redact_review(review.decode(), secret_values).encode())
+                review_bytes = redact_review(review.decode(), secret_values).encode()
+                manifest['review_sha256'] = digest(review_bytes)
+                manifest['artifact_sha256'] = artifact_digest(manifest)
+                put(prefix + 'review.txt', review_bytes)
                 put(prefix + 'manifest.json', json.dumps(manifest, indent=2).encode())
                 print(json.dumps({'plan_id': run_id, 'commit': commit, 'state': state,
-                                  'plan_sha256': manifest['plan_sha256'], **summary}, indent=2))
+                                  'reviewed_sha256': manifest['artifact_sha256'], 'plan_sha256': manifest['plan_sha256'], **summary}, indent=2))
                 print('Review the private review.txt and Git diff before dispatching apply.')
             else:
                 if not re.fullmatch(r'[0-9]+-[0-9]+', plan_id):
@@ -138,7 +141,7 @@ def execute(mode, plan_id='', reviewed_sha='', noop_only=False):
                 prefix = 'plans/' + plan_id + '/'
                 manifest = json.loads(get(prefix + 'manifest.json'))
                 plan_bytes = get(prefix + 'reviewed.tfplan')
-                summary = validate_artifact(manifest, plan_bytes, reviewed_sha, settings, commit, inputs, env, cleanup=cleanup)
+                summary = validate_artifact(manifest, plan_bytes, reviewed_sha, settings, commit, inputs, env, cleanup=cleanup, review_bytes=get(prefix + 'review.txt'))
                 if state != manifest['state']:
                     raise ValueError('State changed since plan; create and review a new plan')
                 plan.write_bytes(plan_bytes)

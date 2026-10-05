@@ -14,6 +14,8 @@ Supply backend credentials through `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KE
 # Back up the actual adopted local snapshot first.
 terraform state pull > .local/before-migration.tfstate
 terraform output -json managed_resource_ids > .local/before-identities.json
+git show origin/main:backend.tf.example > backend.tf.example
+git show origin/main:backend.hcl.example > backend.hcl.example
 cp backend.tf.example backend.tf
 cp backend.hcl.example backend.hcl
 # Edit bucket/key for your dedicated demo backend.

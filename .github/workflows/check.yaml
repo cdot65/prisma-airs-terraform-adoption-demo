@@ -1,0 +1,20 @@
+name: Public example checks
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  offline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09
+        with:
+          persist-credentials: false
+      - run: python3 ci/install-terraform.py
+      - run: .ci-bin/terraform fmt -check -recursive
+      - run: python3 -m unittest discover -s ci/tests -v
+      - run: python3 ci/check-docs.py
+      - name: Validate without credentials or tenant access
+        run: |
+          export TF_CLI_CONFIG_FILE="$PWD/ci/registry.tfrc"
+          .ci-bin/terraform init -backend=false -lockfile=readonly -input=false
+          .ci-bin/terraform validate

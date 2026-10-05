@@ -2,7 +2,13 @@
 
 The public repository teaches the workflow. A **private** Forgejo companion contains tenant-specific nonsecret values and executes live operations. Trust every collaborator with the tenant credentials; a repository-scoped runner is not a sandbox against malicious trusted repository code.
 
-Create the private companion and configure the [dedicated infrastructure](09-infrastructure.md). Copy the CI helpers and Forgejo workflow from this repository. Rename the local input file to `vulture.tfvars` and remove the auto-loaded `terraform.tfvars` copy.
+Create the private companion and retrieve the reviewed helpers/templates from the public main snapshot into this same root:
+
+```bash
+git restore --source=origin/main -- ci infrastructure .forgejo/workflows
+```
+
+Configure the [dedicated infrastructure](09-infrastructure.md). Rename the local input file to `vulture.tfvars` and remove the auto-loaded `terraform.tfvars` copy.
 
 ```bash
 mv terraform.tfvars vulture.tfvars
@@ -19,9 +25,9 @@ Protect `main`: disable direct pushes, apply protection to admins, require the t
 
 ## First apply
 
-Review the private `review.txt`, source commit, plan ID and SHA256. The first plan must have zero resource/output changes. In **Actions → Terraform → Run workflow**, choose `main`, operation `apply`, enter the reviewed `plan_id`/`reviewed_sha256`, and keep `noop_only=true`.
+Review the private `review.txt`, source commit, plan ID and **artifact SHA256**. The artifact digest binds the complete authorization manifest, binary-plan hash, and redacted-review hash. It differs from the separately recorded binary plan SHA256. The first plan must have zero resource/output changes. In **Actions → Terraform → Run workflow**, choose `main`, operation `apply`, enter the reviewed `plan_id`/`reviewed_sha256`, and keep `noop_only=true`.
 
-Apply uses the **saved binary plan**. It checks checksum, source/main commit, exact tfvars bytes and credentials, state identities/lineage/serial, 24-hour review window, and newly observed remote drift. It never silently substitutes a freshly generated plan. Rotate a credential or edit inputs after review and you must create/review a new plan.
+Apply uses the **saved binary plan**. It checks all three artifact components against the reviewed digest, source/main commit, exact tfvars bytes and credentials, state identities/lineage/serial, 24-hour review window, and newly observed remote drift. It never silently substitutes a freshly generated plan. Rotate a credential or edit inputs after review and you must create/review a new plan.
 
 State, binary plans, and diagnostics remain in the private backend. The human-readable review masks resolved credentials as well as Terraform-sensitive fields. Workflow logs contain only action metadata and safe results.
 
